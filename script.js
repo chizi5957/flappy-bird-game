@@ -8,7 +8,7 @@ pipeGreenImg.src = "https://i.postimg.cc/xc7FrvM9/pipe-green.png";
 const pipeRedImg = new Image();
 pipeRedImg.src = "https://i.postimg.cc/v4V2G4tf/pipe-red.png";
 const bgImg = new Image();
-bgImg.src = "https://i.postimg.cc/WtYkSXcb/background.png";
+bgImg.src = "https://i.postimg.cc/J4M5r2TJ/cartoon-sweet-pink-lollipop-candy-world-3d-rendered-picture.jpg";
 
 let bird = { x: 150, y: 200, width: 40, height: 40, velocity: 0, gravity: 0.2, jump: -5 };
 let pipes = [];
