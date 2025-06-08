@@ -8,7 +8,7 @@ pipeGreenImg.src = "https://i.postimg.cc/xc7FrvM9/pipe-green.png";
 const pipeRedImg = new Image();
 pipeRedImg.src = "https://i.postimg.cc/v4V2G4tf/pipe-red.png";
 const bgImg = new Image();
-bgImg.src = "https://ik.imagekit.io/ibb5hx1zar/CandyBackground.jpg?updatedAt=1749412446880";
+bgImg.src = "https://i.postimg.cc/J4M5r2TJ/cartoon-sweet-pink-lollipop-candy-world-3d-rendered-picture.jpg";
 
 let bird = { x: 150, y: 200, width: 40, height: 40, velocity: 0, gravity: 0.2, jump: -5 };
 let pipes = [];
@@ -52,8 +52,27 @@ function drawBird() {
 function drawPipes() {
   for (let pipe of pipes) {
     let img = pipe.color === "green" ? pipeGreenImg : pipeRedImg;
-    ctx.drawImage(img, pipe.x, 0, pipe.width, pipe.top);
-    ctx.drawImage(img, pipe.x, pipe.top + gap, pipe.width, canvas.height - pipe.top - gap);
+    
+    // Draw top pipe (cropped from bottom of original image)
+    let topPipeHeight = pipe.top;
+    let cropStartY = Math.max(0, img.height - topPipeHeight);
+    ctx.drawImage(
+      img,                    // source image
+      0, cropStartY,          // source x, y (crop from bottom)
+      img.width, topPipeHeight, // source width, height
+      pipe.x, 0,              // destination x, y
+      pipe.width, topPipeHeight // destination width, height
+    );
+    
+    // Draw bottom pipe (cropped from top of original image)
+    let bottomPipeHeight = canvas.height - pipe.top - gap;
+    ctx.drawImage(
+      img,                    // source image
+      0, 0,                   // source x, y (crop from top)
+      img.width, bottomPipeHeight, // source width, height
+      pipe.x, pipe.top + gap, // destination x, y
+      pipe.width, bottomPipeHeight // destination width, height
+    );
   }
 }
 
@@ -87,8 +106,30 @@ function loop() {
   for (let i = 0; i < pipes.length; i++) {
     let p = pipes[i];
     p.x -= 2;
-    ctx.drawImage(p.color === "green" ? pipeGreenImg : pipeRedImg, p.x, 0, p.width, p.top);
-    ctx.drawImage(p.color === "green" ? pipeGreenImg : pipeRedImg, p.x, p.top + gap, p.width, canvas.height - p.top - gap);
+    
+    // Draw pipes using cropping (same logic as drawPipes function)
+    let img = p.color === "green" ? pipeGreenImg : pipeRedImg;
+    
+    // Draw top pipe (cropped from bottom of original image)
+    let topPipeHeight = p.top;
+    let cropStartY = Math.max(0, img.height - topPipeHeight);
+    ctx.drawImage(
+      img,                    // source image
+      0, cropStartY,          // source x, y (crop from bottom)
+      img.width, topPipeHeight, // source width, height
+      p.x, 0,                 // destination x, y
+      p.width, topPipeHeight  // destination width, height
+    );
+    
+    // Draw bottom pipe (cropped from top of original image)
+    let bottomPipeHeight = canvas.height - p.top - gap;
+    ctx.drawImage(
+      img,                    // source image
+      0, 0,                   // source x, y (crop from top)
+      img.width, bottomPipeHeight, // source width, height
+      p.x, p.top + gap,       // destination x, y
+      p.width, bottomPipeHeight // destination width, height
+    );
 
     if (!p.passed && p.x + p.width < bird.x) {
       score++;
