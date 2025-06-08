@@ -15,7 +15,7 @@ body {
 
 #gameCanvas {
   display: block;
-  background: url('https://i.postimg.cc/WtYkSXcb/background.png') no-repeat center;
+  background: url('file:///Users/FA071873/Desktop/CandyBackground.jpg') no-repeat center;
   background-size: cover;
 }
 
