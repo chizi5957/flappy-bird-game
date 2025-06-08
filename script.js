@@ -18,8 +18,18 @@ let frame = 0;
 
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
-    if (!gameStarted) startGame();
-    if (!gameOver) bird.velocity = bird.jump;
+    e.preventDefault(); // Prevent default space bar behavior
+    
+    if (!gameStarted && !gameOver) {
+      // Start the game only if we're in the initial state
+      startGame();
+    } else if (gameOver) {
+      // If game is over, restart the game
+      restartGame();
+    } else if (gameStarted && !gameOver) {
+      // If game is running, make the bird jump
+      bird.velocity = bird.jump;
+    }
   }
 });
 
@@ -29,16 +39,37 @@ function startGame() {
   bird.y = 200;
   bird.velocity = 0;
   score = 0;
+  frame = 0;
   gameOver = false;
   gameStarted = true;
+  
+  // Update score display immediately
+  document.getElementById("score").innerText = score;
+  
   loop();
 }
 
 function restartGame() {
+  // Hide game over popup
   document.getElementById("gameOverPopup").style.display = "none";
+  
+  // Show start text
   document.getElementById("startText").style.display = "block";
+  
+  // Reset game state
   gameStarted = false;
-  draw(); // Draw initial frame with bird and background
+  gameOver = false;
+  pipes = [];
+  bird.y = 200;
+  bird.velocity = 0;
+  score = 0;
+  frame = 0;
+  
+  // Update score display immediately
+  document.getElementById("score").innerText = score;
+  
+  // Draw initial frame with bird and background
+  draw();
 }
 
 function drawBackground() {
@@ -98,13 +129,15 @@ function showGameOver() {
 }
 
 function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
   drawPipes();
   drawBird();
 }
 
 function loop() {
-  if (!gameStarted) return;
+  if (!gameStarted || gameOver) return;
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
 
