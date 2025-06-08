@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #a8d5f0, #d1f0a8);
+  font-family: 'Inter', Arial, sans-serif;
+  background: #e6f3ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,13 +10,22 @@ body {
 
 .game-container {
   position: relative;
-  border: 10px double #4CAF50;
+  border: 10px solid #ff69b4;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ff69b4,
+    #ff69b4 8px,
+    #d84d8f 8px,
+    #d84d8f 16px
+  );
+  padding: 0;
 }
 
 #gameCanvas {
   display: block;
   background: url('https://i.postimg.cc/J4M5r2TJ/cartoon-sweet-pink-lollipop-candy-world-3d-rendered-picture.jpg') no-repeat center;
   background-size: cover;
+  border: none;
 }
 
 #scoreBoard {
@@ -28,6 +37,7 @@ body {
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 18px;
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 #gameOverPopup {
@@ -43,14 +53,47 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+#gameOverPopup h1 {
+  font-family: 'Sour Gummy', cursive;
+  font-size: 36px;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+#gameOverPopup p {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  margin: 8px 0;
+  color: #555;
+}
+
+#gameOverPopup button {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+#gameOverPopup button:hover {
+  background-color: #d84d8f;
+}
+
 #startText {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 32px;
+  font-family: 'Sour Gummy', cursive;
   color: #333;
   animation: pulse 1.5s infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes pulse {
