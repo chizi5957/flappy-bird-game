@@ -6,7 +6,7 @@ birdImg.src = "https://i.postimg.cc/sQ64YzJ3/bird.png";
 const pipeGreenImg = new Image();
 pipeGreenImg.src = "https://i.postimg.cc/xc7FrvM9/pipe-green.png";
 const pipeRedImg = new Image();
-pipeRedImg.src = "https://i.postimg.cc/xc7FrvM9/pipe-green.png";
+pipeRedImg.src = "https://i.postimg.cc/v4V2G4tf/pipe-red.png";
 const bgImg = new Image();
 bgImg.src = "https://i.postimg.cc/J4M5r2TJ/cartoon-sweet-pink-lollipop-candy-world-3d-rendered-picture.jpg";
 
