@@ -61,12 +61,6 @@ body {
   font-weight: 800;
   margin: 0 0 15px 0;
   color: #ff1493;
-  text-shadow: 
-    3px 3px 0px #d84d8f,
-    -1px -1px 0px #d84d8f,
-    1px -1px 0px #d84d8f,
-    -1px 1px 0px #d84d8f,
-    1px 1px 0px #d84d8f;
   letter-spacing: 2px;
 }
 
@@ -89,12 +83,6 @@ body {
   cursor: pointer;
   margin-top: 15px;
   transition: background-color 0.3s ease;
-  text-shadow: 
-    2px 2px 0px #d84d8f,
-    -1px -1px 0px #d84d8f,
-    1px -1px 0px #d84d8f,
-    -1px 1px 0px #d84d8f,
-    1px 1px 0px #d84d8f;
 }
 
 #gameOverPopup button:hover {
@@ -111,12 +99,6 @@ body {
   font-weight: 800;
   color: #ff1493;
   animation: pulse 1.5s infinite;
-  text-shadow: 
-    3px 3px 0px #d84d8f,
-    -1px -1px 0px #d84d8f,
-    1px -1px 0px #d84d8f,
-    -1px 1px 0px #d84d8f,
-    1px 1px 0px #d84d8f;
   letter-spacing: 2px;
 }
 
