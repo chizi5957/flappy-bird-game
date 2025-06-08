@@ -49,30 +49,45 @@ function drawBird() {
   ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 }
 
+function drawTiledPipe(img, x, y, width, height, fromBottom = false) {
+  if (!img.complete || img.height === 0) return;
+  
+  let currentY = y;
+  let remainingHeight = height;
+  
+  while (remainingHeight > 0) {
+    let tileHeight = Math.min(remainingHeight, img.height);
+    let sourceY = 0;
+    
+    if (fromBottom && remainingHeight === height) {
+      // For the first tile when drawing from bottom, crop from the bottom of the image
+      sourceY = Math.max(0, img.height - tileHeight);
+    }
+    
+    ctx.drawImage(
+      img,                    // source image
+      0, sourceY,             // source x, y
+      img.width, tileHeight,  // source width, height
+      x, currentY,            // destination x, y
+      width, tileHeight       // destination width, height
+    );
+    
+    currentY += tileHeight;
+    remainingHeight -= tileHeight;
+  }
+}
+
 function drawPipes() {
   for (let pipe of pipes) {
     let img = pipe.color === "green" ? pipeGreenImg : pipeRedImg;
     
-    // Draw top pipe (cropped from bottom of original image)
+    // Draw top pipe (tiled, aligned to bottom)
     let topPipeHeight = pipe.top;
-    let cropStartY = Math.max(0, img.height - topPipeHeight);
-    ctx.drawImage(
-      img,                    // source image
-      0, cropStartY,          // source x, y (crop from bottom)
-      img.width, topPipeHeight, // source width, height
-      pipe.x, 0,              // destination x, y
-      pipe.width, topPipeHeight // destination width, height
-    );
+    drawTiledPipe(img, pipe.x, 0, pipe.width, topPipeHeight, true);
     
-    // Draw bottom pipe (cropped from top of original image)
+    // Draw bottom pipe (tiled, aligned to top)
     let bottomPipeHeight = canvas.height - pipe.top - gap;
-    ctx.drawImage(
-      img,                    // source image
-      0, 0,                   // source x, y (crop from top)
-      img.width, bottomPipeHeight, // source width, height
-      pipe.x, pipe.top + gap, // destination x, y
-      pipe.width, bottomPipeHeight // destination width, height
-    );
+    drawTiledPipe(img, pipe.x, pipe.top + gap, pipe.width, bottomPipeHeight, false);
   }
 }
 
@@ -107,29 +122,16 @@ function loop() {
     let p = pipes[i];
     p.x -= 2;
     
-    // Draw pipes using cropping (same logic as drawPipes function)
+    // Draw pipes using tiling
     let img = p.color === "green" ? pipeGreenImg : pipeRedImg;
     
-    // Draw top pipe (cropped from bottom of original image)
+    // Draw top pipe (tiled, aligned to bottom)
     let topPipeHeight = p.top;
-    let cropStartY = Math.max(0, img.height - topPipeHeight);
-    ctx.drawImage(
-      img,                    // source image
-      0, cropStartY,          // source x, y (crop from bottom)
-      img.width, topPipeHeight, // source width, height
-      p.x, 0,                 // destination x, y
-      p.width, topPipeHeight  // destination width, height
-    );
+    drawTiledPipe(img, p.x, 0, p.width, topPipeHeight, true);
     
-    // Draw bottom pipe (cropped from top of original image)
+    // Draw bottom pipe (tiled, aligned to top)
     let bottomPipeHeight = canvas.height - p.top - gap;
-    ctx.drawImage(
-      img,                    // source image
-      0, 0,                   // source x, y (crop from top)
-      img.width, bottomPipeHeight, // source width, height
-      p.x, p.top + gap,       // destination x, y
-      p.width, bottomPipeHeight // destination width, height
-    );
+    drawTiledPipe(img, p.x, p.top + gap, p.width, bottomPipeHeight, false);
 
     if (!p.passed && p.x + p.width < bird.x) {
       score++;
