@@ -89,12 +89,6 @@ body {
   cursor: pointer;
   margin-top: 15px;
   transition: background-color 0.3s ease;
-  text-shadow: 
-    2px 2px 0px #d84d8f,
-    -1px -1px 0px #d84d8f,
-    1px -1px 0px #d84d8f,
-    -1px 1px 0px #d84d8f,
-    1px 1px 0px #d84d8f;
 }
 
 #gameOverPopup button:hover {
